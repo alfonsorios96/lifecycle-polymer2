@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>lifecycle-polymer2 demo</title>
+
+    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../lifecycle-polymer2.html">
+
+    <custom-style>
+      <style is="custom-style" include="demo-pages-shared-styles">
+      </style>
+    </custom-style>
+  </head>
+  <body>
+      <script>
+         const el = customElements.whenDefined('lifecycle-polymer2').then(() => {
+            const el = new LifecyclePolymer2();
+            console.info(el);
+            // Instancia
+            console.info(document.querySelector('lifecycle-polymer2'));
+
+            const _ = el.cloneNode(true);
+            document.querySelector('body').appendChild(_);
+            // Component in DOM
+            console.info(document.querySelector('lifecycle-polymer2'));
+
+            // document.querySelector('body').removeChild(_);
+          });
+          </script>
+  </body>
+</html>

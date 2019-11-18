@@ -1,0 +1,76 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="lifecycle-polymer2">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[callBack]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `lifecycle-polymer2`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class LifecyclePolymer2 extends Polymer.Element {
+      static get is() { return 'lifecycle-polymer2'; }
+
+      static get properties() {
+        return {
+          callBack: {
+            type: String,
+            value: 'lifecycle-polymer2',
+            reflectToAttribute: true
+          }
+        };
+      }
+
+      constructor(){
+        super();
+        // Crear la instancia.
+        console.info('Create instance');
+      }
+
+      ready() {
+        super.ready();
+        // Se agrega la instancia al DOM la primera vez.
+        console.info('Ejecutándose ready');
+      }
+
+      connectedCallback(){
+        super.connectedCallback();
+        // Crea la tag y la inyecta en el DOM n-veces
+        console.info('The component is in DOM');
+      }
+
+      attributeChangedCallback(name, oldValue, newValue) {
+        super.attributeChangedCallback();
+        // Solo cuando cambia el atributo
+        this[name.split('-').map((fragment, index) => {
+          if(index > 0) {
+             let result = fragment.split('');
+             result[0] = result[0].toUpperCase();
+             fragment = result.join('')
+          }
+          return fragment;
+        }).join('')] = newValue;
+        console.info('Ejecutándose attributeChangedCallback', name, oldValue, newValue);
+      }
+
+      disconnectedCallback(){
+        super.disconnectedCallback();
+        // Cuando sale el nodo del DOM.
+        console.info('The component was removed');
+      }
+    }
+
+    window.customElements.define(LifecyclePolymer2.is, LifecyclePolymer2);
+  </script>
+</dom-module>
